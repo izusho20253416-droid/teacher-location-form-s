@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>テスト送信</title>
+</head>
+<body>
+  <h1>先生居場所テスト送信</h1>
+  <label>先生名：
+    <input type="text" id="teacher" value="山田先生">
+  </label><br>
+  <label>居場所：
+    <input type="text" id="location" value="職員室">
+  </label><br>
+  <label>コメント：
+    <input type="text" id="comment" value="会議中">
+  </label><br>
+  <button onclick="sendData()">送信</button>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwVyJKQF9MAKPkcQsfyTEhfdhdZOZd-LMNl2WWSrhSknUyDHMMT4V-77qtiTsrJSzmM/exec'; //コピーしたURL
+
+async function sendData() {
+  const data = {
+    name: document.getElementById('teacher').value,
+    location: document.getElementById('location').value,
+    comment: document.getElementById('comment').value
+  };
+
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  const json = await res.json();
+  console.log(json);
+  alert('送信しました');
+}
+</script>
+</body>
+</html>
